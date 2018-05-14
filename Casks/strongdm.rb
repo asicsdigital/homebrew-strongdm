@@ -8,4 +8,13 @@ cask 'strongdm' do
   homepage 'https://strongdm.com/'
 
   app 'SDM.app'
+
+  # symlink the executable into bindir
+  postflight do
+    File.symlink("#{appdir}/SDM.app/Contents/Resources/sdm.darwin", "#{HOMEBREW_PREFIX}/bin/sdm")
+  end
+
+  uninstall_postflight do
+    File.unlink("#{HOMEBREW_PREFIX}/bin/sdm")
+  end
 end
